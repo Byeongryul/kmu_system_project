@@ -1,11 +1,25 @@
-setwd("C:/Users/mapia!/Desktop/kmu/system/ê³¼ì œ ì¤€ë¹„/1ì°¨_ê³¼ì œ_ì¤€ë¹„/19_10_11_4ì°¨_ë°ì´í„°_ì„ ë³„/")
+setwd("C:/Users/mapia/Desktop/kmu/system/°úÁ¦ ÁØºñ/1Â÷_°úÁ¦_ÁØºñ/19_10_11_4Â÷_µ¥ÀÌÅÍ_¼±º°/")
 
-df_exam = read_excel("ë¶„ì•¼ë³„_ê¸°ì¤€_ë°ì´í„°/ë¶„ì•¼ë³„ ê°ê°ì˜ ì„ê¸ˆ(ìµœì € í‰ê·  ìµœê³ ) + ìµœí•˜ë‹¨ í‰ê· ê°’ ê¸°ì¬.xlsx")
+library(readxl)
+df_exam = read_excel("ºĞ¾ßº°_±âÁØ_µ¥ÀÌÅÍ/ºĞ¾ßº° °¢°¢ÀÇ ÀÓ±İ(ÃÖÀú Æò±Õ ÃÖ°í) + ÃÖÇÏ´Ü Æò±Õ°ª ±âÀç.xlsx")
 
-df_exam = df_exam[df_exam$...1=="í‰ê· ",]
+test = t(df_exam[df_exam$...1 == 'Æò±Õ',])[2:10,]
 
-df_exam = subset(df_exam, select = -...1)
+test = as.numeric(test)
 
-z = matrix(df_exam, nrow =3, dimnames = list(c('ë¡œë´‡', 'ë¹…ë°ì´í„°', 'ì¸ê³µì§€ëŠ¥'), c('ìµœì €', 'í‰ê· ','ìµœê³ ')))
+test = list(robot = test[1:3], big = test[4:6], ai = test[7:9])
 
-barplot(col = c("green", "yellow", "pink"))
+test = data.frame(test)
+
+rownames(test) = c('low', 'mid', 'high')
+
+test = data.frame(t(test))
+
+test = as.matrix(test)
+
+cols = c("lightblue", "mistyrose", "lightcyan")
+
+barplot(test, c(1, 1, 1), beside = TRUE,
+        col = cols, main = "ºĞ¾ßº° ÀÓ±İ", 
+        legend = rownames(test), ylim = c(0, 69000000))
+
